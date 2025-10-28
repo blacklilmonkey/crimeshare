@@ -1,0 +1,113 @@
+================================================================================
+🎯 EXACT CLOUDFLARE DNS SETUP FOR YOUR DOMAIN
+================================================================================
+
+YOUR RENDER URL: crimeshare.onrender.com
+YOUR DOMAIN: [your-domain.com]
+
+================================================================================
+STEP 1: GO TO CLOUDFLARE
+================================================================================
+
+1. Visit: https://dash.cloudflare.com
+2. Log in
+3. Click on YOUR DOMAIN
+
+================================================================================
+STEP 2: ADD DNS RECORDS
+================================================================================
+
+Go to DNS → Records → Click "Add record"
+
+═══════════════════════════════════════════════════════════════
+RECORD 1: Root Domain (yourdomain.com)
+═══════════════════════════════════════════════════════════════
+
+Type:      CNAME
+Name:      @
+Target:    crimeshare.onrender.com
+Proxy:     ON ☁️ (MAKE IT ORANGE!)
+TTL:       Auto
+
+Click "Save"
+
+═══════════════════════════════════════════════════════════════
+RECORD 2: WWW Subdomain (www.yourdomain.com)
+═══════════════════════════════════════════════════════════════
+
+Type:      CNAME
+Name:      www
+Target:    crimeshare.onrender.com
+Proxy:     ON ☁️ (MAKE IT ORANGE!)
+TTL:       Auto
+
+Click "Save"
+
+═══════════════════════════════════════════════════════════════
+
+IMPORTANT NOTES:
+✓ The "Proxy" icon MUST be ORANGE ☁️ (Proxied)
+✓ If it's GRAY, click it to turn it ORANGE
+✓ This enables Cloudflare's CDN and DDoS protection
+
+================================================================================
+STEP 3: SSL/TLS SETTINGS
+================================================================================
+
+1. Click "SSL/TLS" in the left sidebar
+2. Set to: "Full (strict)"
+3. Click "Save"
+
+This ensures secure HTTPS connection!
+
+================================================================================
+STEP 4: WAIT FOR DNS PROPAGATION
+================================================================================
+
+⏱️ DNS changes take 5-60 minutes to propagate worldwide
+
+✅ Once active, you can visit:
+- https://yourdomain.com
+- https://www.yourdomain.com
+
+Both will work and redirect to your CrimeShare site!
+
+Check DNS status at: https://dnschecker.org
+
+================================================================================
+VERIFY IT'S WORKING
+================================================================================
+
+After 10-30 minutes, open your browser and visit:
+https://yourdomain.com
+
+You should see your CrimeShare upload page! 🎉
+
+================================================================================
+TROUBLESHOOTING
+================================================================================
+
+Issue: "502 Bad Gateway" or "404 Not Found"
+→ Wait a few more minutes (DNS propagation)
+→ Make sure Render service is "Live"
+→ Check SSL/TLS is "Full (strict)"
+
+Issue: Can't access site
+→ Try incognito/private browsing
+→ Clear browser cache (Ctrl+Shift+Delete)
+→ Try from a different device
+
+Issue: Cloudflare proxy not working
+→ Make sure the cloud icon is ORANGE, not gray
+→ Click the gray cloud to make it orange
+
+================================================================================
+DONE! 🚀
+================================================================================
+
+Your CrimeShare site is now live at your custom domain!
+
+Thanks for using CrimeShare! 🔫
+
+================================================================================
+

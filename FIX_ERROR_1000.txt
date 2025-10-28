@@ -1,0 +1,87 @@
+================================================================================
+FIX: ERROR 1000 - DNS POINTS TO PROHIBITED IP
+================================================================================
+
+PROBLEM:
+Cloudflare Proxy is conflicting with Render.com
+
+SOLUTION:
+Turn OFF Cloudflare Proxy (use DNS-only mode)
+
+================================================================================
+STEP 1: GO TO CLOUDFLARE DNS
+================================================================================
+
+1. Visit: https://dash.cloudflare.com
+2. Click on your domain: crimeshare.lol
+3. Click "DNS" in the left sidebar
+
+================================================================================
+STEP 2: FIX THE CNAME RECORDS
+================================================================================
+
+You'll see 2 CNAME records for crimeshare.onrender.com
+
+For BOTH records:
+
+1. Find the record with Target: crimeshare.onrender.com
+2. You'll see a CLOUD ICON that is probably ORANGE ☁️
+3. CLICK THE CLOUD to turn it GRAY ⚪
+4. The cloud should now be GRAY (DNS only, not proxied)
+5. Click "Save" or the record will auto-save
+
+Do this for BOTH:
+- @ record (yourdomain.com)
+- www record (www.yourdomain.com)
+
+================================================================================
+VISUAL GUIDE:
+================================================================================
+
+BEFORE (Wrong - causes Error 1000):
+Type: CNAME
+Name: @
+Target: crimeshare.onrender.com
+Proxy: ☁️ ORANGE  ← THIS IS THE PROBLEM
+
+AFTER (Correct):
+Type: CNAME
+Name: @
+Target: crimeshare.onrender.com
+Proxy: ⚪ GRAY  ← THIS FIXES IT
+
+================================================================================
+STEP 3: WAIT 5 MINUTES
+================================================================================
+
+DNS changes take a few minutes to update.
+
+After 5 minutes, try visiting: https://crimeshare.lol
+
+It should work now! ✅
+
+================================================================================
+WHY THIS HAPPENS:
+================================================================================
+
+Render.com might already be using Cloudflare internally.
+When you proxy through Cloudflare → Render → Cloudflare, 
+it creates a conflict (Error 1000).
+
+Using DNS-only mode (gray cloud) bypasses this issue.
+
+================================================================================
+SECURITY NOTE:
+================================================================================
+
+Even with the gray cloud (DNS-only):
+✓ Your site is still accessible
+✓ You still get Cloudflare's SSL/TLS
+✓ Traffic is still protected
+✓ Render.com provides DDoS protection
+
+The only difference: Traffic goes directly to Render
+instead of through Cloudflare's CDN first.
+
+================================================================================
+

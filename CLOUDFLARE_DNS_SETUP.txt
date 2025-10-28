@@ -1,0 +1,98 @@
+================================================================================
+🔥 CLOUDFLARE DNS SETUP - FINAL STEP
+================================================================================
+
+YOUR RENDER URL (Example): https://crimeshare-xxxx.onrender.com
+
+================================================================================
+STEP 1: FIND YOUR RENDER URL
+================================================================================
+
+Go to your Render dashboard:
+1. Visit: https://dashboard.render.com
+2. Click on your "crimeshare" service
+3. You'll see your URL at the top (something like: crimeshare-xxxx.onrender.com)
+4. COPY THIS URL - you'll need it for DNS!
+
+================================================================================
+STEP 2: CLOUDFLARE DNS SETUP
+================================================================================
+
+1. Go to: https://dash.cloudflare.com
+2. Click on YOUR DOMAIN
+3. Click "DNS" in the left sidebar
+4. Click "Add record" button
+
+Now add these 2 CNAME records:
+
+═══════════════════════════════════════════════════════════════
+RECORD 1: Root Domain (@)
+═══════════════════════════════════════════════════════════════
+Type:      CNAME
+Name:      @
+Target:    crimeshare-xxxx.onrender.com (YOUR RENDER URL)
+Proxy:     ON (Make the cloud orange ☁️)
+TTL:       Auto
+
+Click "Save"
+
+═══════════════════════════════════════════════════════════════
+RECORD 2: WWW Subdomain
+═══════════════════════════════════════════════════════════════
+Type:      CNAME
+Name:      www
+Target:    crimeshare-xxxx.onrender.com (YOUR RENDER URL)
+Proxy:     ON (Make the cloud orange ☁️)
+TTL:       Auto
+
+Click "Save"
+
+═══════════════════════════════════════════════════════════════
+
+IMPORTANT: Make sure the CLOUD icon is ORANGE (Proxied), not GRAY!
+
+================================================================================
+STEP 3: SSL/TLS SETTINGS
+================================================================================
+
+1. In Cloudflare, go to "SSL/TLS" in the left sidebar
+2. Set to: "Full (strict)"
+3. Click "Save"
+
+================================================================================
+STEP 4: WAIT FOR DNS PROPAGATION
+================================================================================
+
+⚠️ DNS changes take 5-60 minutes to propagate worldwide.
+
+✅ Your site will be live at: yourdomain.com and www.yourdomain.com
+
+You can check if it's ready at: https://dnschecker.org
+
+================================================================================
+TROUBLESHOOTING
+================================================================================
+
+If your site shows "404 Not Found" or "Invalid Host":
+1. Make sure your Render service is "Live"
+2. Check SSL/TLS is set to "Full (strict)" in Cloudflare
+3. Wait a few more minutes for DNS to update
+
+If you can't access your site:
+1. Try: https://yourdomain.com (with https)
+2. Clear your browser cache (Ctrl+Shift+Delete)
+3. Try incognito/private browsing
+
+================================================================================
+YOUR SITE IS NOW LIVE! 🎉
+================================================================================
+
+Visit: https://yourdomain.com (or your actual domain)
+
+You can now:
+- Upload files to your site
+- Share download links with others
+- Access it from anywhere in the world!
+
+================================================================================
+

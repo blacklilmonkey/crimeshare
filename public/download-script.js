@@ -1,5 +1,6 @@
 const fileInput = document.getElementById('fileInput');
 const fileExplorer = document.getElementById('fileExplorer');
+const downloadButton = document.getElementById('downloadButton');
 const path = document.getElementById('path');
 const shareMessage = document.getElementById('shareMessage');
 const timestamp = document.getElementById('timestamp');
@@ -51,6 +52,7 @@ function displayFileInfo(file) {
     
     fileInfo.classList.remove('hidden');
     fileExplorer.classList.remove('hidden');
+    downloadButton.classList.remove('hidden');
     instructionsText.style.display = 'none';
 }
 
@@ -81,6 +83,11 @@ function showError(message) {
     errorDiv.textContent = message;
     errorDiv.classList.remove('hidden');
 }
+
+// Download button functionality
+downloadButton.addEventListener('click', function() {
+    window.location.href = `/download-file?id=${code}`;
+});
 
 // Load file info when page loads
 loadFileInfo();
