@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Download - CrimeShare</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .download-header svg {
+            width: 50px;
+            margin-bottom: 20px;
+            color: var(--primary);
+        }
+
+        .instructions {
+            text-align: left;
+            padding: 20px 0;
+            font-size: 15px;
+            line-height: 1.8;
+        }
+
+        .instructions ol {
+            margin: 0;
+            padding-left: 20px;
+        }
+
+        .instructions li {
+            margin-bottom: 15px;
+        }
+
+        .code-block {
+            background: rgba(0, 0, 0, 0.5);
+            border: 2px solid var(--primary);
+            border-radius: 8px;
+            padding: 12px 16px;
+            font-family: Consolas, monospace;
+            font-size: 14px;
+            margin-top: 10px;
+            position: relative;
+            transition: all 0.3s;
+            cursor: pointer;
+            user-select: none;
+            color: var(--text);
+            word-break: break-all;
+        }
+
+        .code-block:hover {
+            background: rgba(99, 102, 241, 0.2);
+            border-color: var(--secondary);
+            transform:  translateY(-2px);
+        }
+
+        .code-block::after {
+            content: "Copy";
+            position: absolute;
+            top: 50%;
+            right: 16px;
+            transform: translateY(-50%);
+            font-size: 12px;
+            color: var(--primary);
+            opacity: 0;
+            transition: opacity 0.2s;
+            font-weight: 600;
+        }
+
+        .code-block:hover::after {
+            opacity: 1;
+        }
+
+        .code-block.clicked::after {
+            content: "Copied!";
+            color: var(--success);
+        }
+
+        #fileExplorer {
+            background: linear-gradient(135deg, var(--primary), #ef4444);
+            color: white;
+            border: none;
+            padding: 14px 40px;
+            font-size: 16px;
+            border-radius: 8px;
+            margin: 30px 0 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4);
+            display: block;
+            width: 100%;
+        }
+
+        #fileExplorer:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(99, 102, 241, 0.6);
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .error-message {
+            color: white;
+            background: rgba(239, 68, 68, 0.2);
+            border: 1px solid var(--error);
+            padding: 15px 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .loading-info {
+            color: var(--text-secondary);
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        .share-message {
+            color: var(--text);
+            font-weight: 500;
+        }
+
+        .timestamp {
+            color: var(--text-secondary);
+            font-size: 13px;
+            margin-top: 10px;
+        }
+
+        strong {
+            color: white;
+            font-weight: 700;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+
+        .action-button {
+            background: linear-gradient(135deg, var(--primary), #ef4444);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            font-size: 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 600;
+            flex: 1;
+            min-width: 150px;
+        }
+
+        .action-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(220, 38, 38, 0.6);
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal.show {
+            display: flex;
+        }
+
+        .modal-content {
+            background: rgba(0, 0, 0, 0.95);
+            border: 2px solid var(--primary);
+            border-radius: 12px;
+            padding: 40px;
+            max-width: 600px;
+            max-height: 80vh;
+            overflow-y: auto;
+            position: relative;
+            box-shadow: 0 20px 60px rgba(220, 38, 38, 0.3);
+        }
+
+        .modal-header {
+            margin-bottom: 20px;
+        }
+
+        .modal-header h2 {
+            color: var(--primary);
+            margin: 0;
+            font-size: 1.8rem;
+        }
+
+        .close-button {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: var(--primary);
+            border: none;
+            color: white;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 20px;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+
+        .close-button:hover {
+            background: var(--secondary);
+            transform: rotate(90deg);
+        }
+
+        .modal-content ul {
+            margin: 20px 0;
+            padding-left: 30px;
+        }
+
+        .modal-content li {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+
+        .modal-content strong {
+            color: var(--primary);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="download-header">
+            <h1>CrimeShare</h1>
+            <p class="share-message" id="shareMessage">Available to you</p>
+            <div class="timestamp" id="timestamp"></div>
+        </header>
+
+        <div class="instructions">
+            <p id="instructionsText">Loading file information...</p>
+            
+            <div id="fileInfo" class="hidden">
+                <p>To access <strong id="fileName"></strong>, follow these steps (this ensures the file is in the right location):</p>
+                <ol>
+                    <li>
+                        Copy the file path below
+                        <div class="code-block" id="path">
+                            Loading...
+                        </div>
+                    </li>
+                    <li>Open File Explorer and select the address bar (<strong>CTRL + L</strong>)</li>
+                    <li>Paste the file path and press <strong>Enter</strong></li>
+                </ol>
+            </div>
+
+            <div id="errorMessage" class="error-message hidden"></div>
+
+            <input type="file" id="fileInput" style="display: none;">
+            <button id="fileExplorer" class="hidden" onclick="openFileExplorer()">Open File Explorer</button>
+
+            <div class="action-buttons">
+                <button class="action-button" onclick="window.location.href='/'">Upload a File</button>
+                <button class="action-button" onclick="showInfo()">Information</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Information Modal -->
+    <div id="infoModal" class="modal" onclick="event.stopPropagation(); if(event.target.id === 'infoModal') closeInfo()">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <button class="close-button" onclick="closeInfo()">×</button>
+            <div class="modal-header">
+                <h2>Information - CrimeShare</h2>
+            </div>
+            <div>
+                <p><strong>🔒 Fully Secure & Private</strong></p>
+                <p>All uploads and files are completely private and secure. The code is fully protected and cannot be accessed through browser inspect element or any developer tools. Your files remain confidential and secure.</p>
+                
+                <p><strong>⚠️ Disclaimer</strong></p>
+                <p>The owner of this website is not responsible for any files being shared through this platform. Users are solely responsible for the content they upload and share.</p>
+                
+                <p><strong>📬 Contact & Support</strong></p>
+                <p>Follow our Telegram channel for updates and support: <a href="https://t.me/CrimeShare_lol" target="_blank" style="color: #0088cc; text-decoration: none; font-weight: 600;">@CrimeShare_lol</a></p>
+                
+                <p><strong>How to upload a file:</strong></p>
+                <ul>
+                    <li>Click the "Upload a File" button to go to the upload page</li>
+                    <li>Drag and drop your file onto the upload area, or click to browse</li>
+                    <li>Once uploaded, you'll get a shareable link</li>
+                    <li>Share the link with others to let them download your file</li>
+                    <li>Only people with the link can access your files</li>
+                </ul>
+
+                <p><strong>Why verify file location when downloading?</strong></p>
+                <ul>
+                    <li>Downloads can sometimes end up in unexpected directories</li>
+                    <li>Checking the file location ensures you know where your files are stored</li>
+                    <li>This helps protect your privacy and keep your files organized</li>
+                    <li>Verifying location prevents exploitation - malicious actors could exploit the path to place files in hidden system folders</li>
+                    <li>Always verify the file location to prevent unauthorized access to your system</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script src="download-script.js"></script>
+    <script>
+        function showInfo() {
+            document.getElementById('infoModal').classList.add('show');
+        }
+
+        function closeInfo() {
+            document.getElementById('infoModal').classList.remove('show');
+        }
+
+        // Close modal with Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeInfo();
+            }
+        });
+    </script>
+</body>
+</html>

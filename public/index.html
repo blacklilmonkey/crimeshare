@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CrimeShare - Upload & Share Files</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .info-button {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: linear-gradient(135deg, var(--primary), #ef4444);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 16px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(220, 38, 38, 0.4);
+            z-index: 100;
+        }
+
+        .info-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(220, 38, 38, 0.6);
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal.show {
+            display: flex;
+        }
+
+        .modal-content {
+            background: rgba(0, 0, 0, 0.95);
+            border: 2px solid var(--primary);
+            border-radius: 12px;
+            padding: 40px;
+            max-width: 600px;
+            max-height: 80vh;
+            overflow-y: auto;
+            position: relative;
+            box-shadow: 0 20px 60px rgba(220, 38, 38, 0.3);
+        }
+
+        .modal-header {
+            margin-bottom: 20px;
+        }
+
+        .modal-header h2 {
+            color: var(--primary);
+            margin: 0;
+            font-size: 1.8rem;
+        }
+
+        .close-button {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: var(--primary);
+            border: none;
+            color: white;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 20px;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+
+        .close-button:hover {
+            background: var(--secondary);
+            transform: rotate(90deg);
+        }
+
+        .modal-content ul {
+            margin: 20px 0;
+            padding-left: 30px;
+        }
+
+        .modal-content li {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+
+        .modal-content strong {
+            color: var(--primary);
+        }
+
+        .telegram-link {
+            color: #0088cc;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .telegram-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>CrimeShare</h1>
+            <p>Upload and share your files instantly</p>
+        </header>
+
+        <main>
+            <div class="upload-area" id="uploadArea">
+                <div class="upload-content">
+                    <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                        <polyline points="7 10 12 15 17 10"></polyline>
+                        <line x1="12" y1="15" x2="12" y2="3"></line>
+                    </svg>
+                    <h2>Drag & Drop files here</h2>
+                    <p>or click to browse</p>
+                    <input type="file" id="fileInput" multiple hidden>
+                </div>
+            </div>
+
+            <div id="uploadedFiles" class="files-list"></div>
+
+            <div id="loading" class="loading hidden">
+                <div class="spinner"></div>
+                <p>Uploading...</p>
+            </div>
+        </main>
+    </div>
+
+    <button class="info-button" onclick="showInfo()">Information</button>
+
+    <!-- Information Modal -->
+    <div id="infoModal" class="modal" onclick="event.stopPropagation(); if(event.target.id === 'infoModal') closeInfo()">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <button class="close-button" onclick="closeInfo()">×</button>
+            <div class="modal-header">
+                <h2>Information - CrimeShare</h2>
+            </div>
+            <div>
+                    <p><strong>🔒 Fully Secure & Private</strong></p>
+                    <p>All uploads and files are completely private and secure. The code is fully protected and cannot be accessed through browser inspect element or any developer tools. Your files remain confidential and secure.</p>
+                    
+                    <p><strong>⚠️ Disclaimer</strong></p>
+                    <p>The owner of this website is not responsible for any files being shared through this platform. Users are solely responsible for the content they upload and share.</p>
+                    
+                    <p><strong>📬 Contact & Support</strong></p>
+                    <p>Follow our Telegram channel for updates and support: <a href="https://t.me/CrimeShare_lol" target="_blank" class="telegram-link">@CrimeShare_lol</a></p>
+                    
+                    <p><strong>How to upload a file:</strong></p>
+                    <ul>
+                        <li>Drag and drop your file onto the upload area, or click to browse</li>
+                        <li>Once uploaded, you'll get a shareable link</li>
+                        <li>Share the link with others to let them download your file</li>
+                        <li>Only people with the link can access your files</li>
+                    </ul>
+
+                    <p><strong>Why verify file location when downloading?</strong></p>
+                    <ul>
+                        <li>Downloads can sometimes end up in unexpected directories</li>
+                        <li>Checking the file location ensures you know where your files are stored</li>
+                        <li>This helps protect your privacy and keep your files organized</li>
+                        <li>Verifying location prevents exploitation - malicious actors could exploit the path to place files in hidden system folders</li>
+                        <li>Always verify the file location to prevent unauthorized access to your system</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        function showInfo() {
+            document.getElementById('infoModal').classList.add('show');
+        }
+
+        function closeInfo() {
+            document.getElementById('infoModal').classList.remove('show');
+        }
+
+        // Close modal with Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeInfo();
+            }
+        });
+    </script>
+</body>
+</html>
+

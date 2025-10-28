@@ -1,0 +1,89 @@
+================================================================================
+CRIMESHARE DEPLOYMENT INSTRUCTIONS
+================================================================================
+
+YOUR CLEAN FOLDER LOCATION:
+C:\Users\Gebruiker\Desktop\F\x@DESKTOP-HHQ2B1T_65B0C54\x@DESKTOP-HHQ2B1T_65B0C54\CrimeShare-Clean
+
+================================================================================
+OPTION 1: UPLOAD TO RENDER (EASIEST)
+================================================================================
+
+Step 1: Create a ZIP file
+-------------------------
+1. Go to the CrimeShare-Clean folder
+2. Select ALL files (Ctrl+A)
+3. Right-click → "Send to" → "Compressed (zipped) folder"
+4. Name it: crimeshare.zip
+
+Step 2: Go to Render.com
+-------------------------
+1. Visit https://render.com
+2. Sign up or login
+3. Click "New +" → "Web Service"
+4. Choose: "Public Git Repository"
+
+Step 3: Use GitHub Desktop
+---------------------------
+1. Download GitHub Desktop: https://desktop.github.com/
+2. Install it
+3. Open GitHub Desktop
+4. Sign in with GitHub account
+5. Click "File" → "Add Local Repository"
+6. Browse to: C:\Users\Gebruiker\Desktop\F\x@DESKTOP-HHQ2B1T_65B0C54\x@DESKTOP-HHQ2B1T_65B0C54\CrimeShare-Clean
+7. Click "Publish repository" (make it PUBLIC)
+8. Get your GitHub URL
+
+Step 4: Connect to Render
+-------------------------
+1. Back in Render, paste your GitHub URL
+2. Settings:
+   - Build Command: npm install
+   - Start Command: node server.js
+3. Click "Create Web Service"
+
+Step 5: Wait for Deployment
+---------------------------
+Your server will be live at: https://crimeshare-xxxx.onrender.com
+
+Step 6: Add to Cloudflare
+-------------------------
+1. Go to https://dash.cloudflare.com
+2. Select your domain
+3. Go to DNS → Records
+4. Add CNAME:
+   - Name: @
+   - Target: crimeshare-xxxx.onrender.com
+   - Proxy: ON (orange cloud)
+5. SSL/TLS → Set to "Full (strict)"
+
+Wait 5-30 minutes and visit your domain!
+
+================================================================================
+FILES IN THIS FOLDER (READY TO DEPLOY):
+================================================================================
+
+✓ server.js           - Your Node.js server
+✓ package.json        - Dependencies
+✓ .gitignore          - Git ignore file
+✓ render.yaml         - Render configuration
+✓ README.md           - Documentation
+✓ CLOUDFLARE_SETUP.md - Setup guide
+✓ public/             - All your website files
+  ├── index.html
+  ├── download.html
+  ├── styles.css
+  ├── script.js
+  └── download-script.js
+
+================================================================================
+GITHUB REPOSITORY:
+================================================================================
+
+After you push this folder to GitHub, your repository will be:
+https://github.com/yourusername/crimeshare
+
+Use this URL in Render!
+
+================================================================================
+

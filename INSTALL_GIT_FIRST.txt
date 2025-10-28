@@ -1,0 +1,56 @@
+================================================================================
+INSTALL GIT FIRST - THEN FOLLOW THESE STEPS
+================================================================================
+
+STEP 1: INSTALL GIT FOR WINDOWS
+-------------------------------
+1. Download: https://git-scm.com/download/win
+2. Run the installer
+3. Click "Next" on all screens (default settings are fine)
+4. Complete the installation
+
+STEP 2: RESTART YOUR COMPUTER
+------------------------------
+Restart your computer after installing Git
+
+STEP 3: OPEN GITHUB DESKTOP
+----------------------------
+1. Open GitHub Desktop
+2. Sign in with your GitHub account
+3. Click "File" → "Add Local Repository"
+4. Browse to THIS folder: CrimeShare-Clean
+5. Click "Add Repository"
+
+STEP 4: PUBLISH TO GITHUB
+--------------------------
+1. In GitHub Desktop, click "Publish repository"
+2. Name: crimeshare
+3. UNCHECK "Keep this code private" (make it PUBLIC)
+4. Click "Publish Repository"
+
+STEP 5: GET YOUR URL
+--------------------
+You'll get: https://github.com/yourusername/crimeshare
+
+Copy this URL!
+
+================================================================================
+ALTERNATIVE: USE GITHUB.COM DIRECTLY (NO INSTALLATION NEEDED)
+================================================================================
+
+If you don't want to install Git:
+
+1. Go to https://github.com
+2. Sign up or login
+3. Click the "+" icon → "New repository"
+4. Name: crimeshare
+5. Make it PUBLIC
+6. DON'T initialize with README
+7. Click "Create repository"
+
+Then GitHub will give you commands to upload, OR you can:
+- Drag and drop the files directly on the GitHub page
+- Or use the web interface to create files
+
+================================================================================
+
