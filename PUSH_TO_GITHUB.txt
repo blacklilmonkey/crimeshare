@@ -1,0 +1,74 @@
+================================================================================
+STEP-BY-STEP: PUSH CRIMESHARE TO GITHUB
+================================================================================
+
+YOUR FOLDER LOCATION:
+C:\Users\Gebruiker\Desktop\F\x@DESKTOP-HHQ2B1T_65B0C54\x@DESKTOP-HHQ2B1T_65B0C54\CrimeShare-Clean
+
+YOUR GITHUB REPO URL:
+https://github.com/YOUR_USERNAME/crimeshare
+(Replace YOUR_USERNAME with your actual username)
+
+================================================================================
+STEP 1: OPEN POWERSHELL IN THE FOLDER
+================================================================================
+
+OPTION A - Using File Explorer:
+1. Press Windows Key + E
+2. Navigate to: C:\Users\Gebruiker\Desktop\F\x@DESKTOP-HHQ2B1T_65B0C54\x@DESKTOP-HHQ2B1T_65B0C54\CrimeShare-Clean
+3. Click in the address bar (it will show the path)
+4. Type: powershell
+5. Press Enter
+
+OPTION B - Using PowerShell:
+1. Press Windows Key + R
+2. Type: powershell
+3. Press Enter
+4. Type this command and press Enter:
+   cd "C:\Users\Gebruiker\Desktop\F\x@DESKTOP-HHQ2B1T_65B0C54\x@DESKTOP-HHQ2B1T_65B0C54\CrimeShare-Clean"
+
+================================================================================
+STEP 2: RUN THESE COMMANDS (COPY EACH ONE AND PRESS ENTER)
+================================================================================
+
+Command 1:
+git init
+
+Command 2:
+git add .
+
+Command 3:
+git commit -m "Initial commit"
+
+Command 4 (REPLACE YOUR_USERNAME):
+git branch -M main
+
+Command 5 (REPLACE YOUR_USERNAME WITH YOUR ACTUAL GITHUB USERNAME):
+git remote add origin https://github.com/YOUR_USERNAME/crimeshare.git
+
+Command 6:
+git push -u origin main
+
+================================================================================
+WHAT TO EXPECT:
+================================================================================
+
+- After "git push", you'll be asked for GitHub username → ENTER IT
+- Then you'll be asked for password → ENTER YOUR GITHUB PERSONAL ACCESS TOKEN
+  (NOT your GitHub password - you need to create a token at github.com/settings/tokens)
+
+================================================================================
+If you need a Personal Access Token:
+================================================================================
+
+1. Go to https://github.com/settings/tokens
+2. Click "Generate new token" → "Generate new token (classic)"
+3. Name: crimeshare
+4. Expiration: No expiration
+5. Check: repo (all)
+6. Click "Generate token"
+7. COPY THE TOKEN (you'll only see it once!)
+8. Use this token as your password when pushing
+
+================================================================================
+
